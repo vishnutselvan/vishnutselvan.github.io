@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishnu Selvan | IT Infrastructure & Network Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #0f172a;
+            --bg-card: #1e293b;
+            --accent: #10b981;
+            --accent-dim: #059669;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #334155;
+            --gradient-start: #10b981;
+            --gradient-end: #06b6d4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background grid */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: '>';
+            color: var(--accent);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 50px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-tag .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dim);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-tag::before {
+            content: '//';
+            color: var(--text-muted);
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* About */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            padding: 1.2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .info-item label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .info-item p {
+            margin-top: 0.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Skills */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .skill-category h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            color: var(--text-primary);
+        }
+
+        .skill-category h3 .icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .skill-tag {
+            padding: 0.4rem 0.9rem;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        /* Experience */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .timeline-company {
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        .timeline-location {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .timeline-desc ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .timeline-desc li {
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .timeline-desc li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Certifications */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .cert-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--gradient-end));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .cert-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .cert-status {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.8rem;
+        }
+
+        .cert-status.active {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent);
+        }
+
+        .cert-status.progress {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+        }
+
+        .cert-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .cert-issuer {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .cert-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .contact-link .icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .contact-link .info label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .contact-link .info p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .hero-phone a:hover {
+            border-bottom-style: solid;
+            color: var(--text-primary);
+        }
+
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--gradient-end));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .project-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .project-status {
+            padding: 0.25rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .project-status.completed {
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .project-status.inprogress {
+            background: rgba(245, 158, 11, 0.12);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .project-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.7rem;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            padding: 0.3rem 0.7rem;
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.12);
+            border-radius: 5px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .tech-tag:hover {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent);
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item {
+                padding-left: 2rem;
+            }
+        }
+
+        /* Terminal effect for code blocks */
+        .terminal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terminal::before {
+            content: '● ● ●';
+            position: absolute;
+            top: 0.8rem;
+            left: 1rem;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 0.3rem;
+        }
+
+        .terminal-content {
+            margin-top: 1.5rem;
+        }
+
+        .terminal-line {
+            margin-bottom: 0.3rem;
+        }
+
+        .terminal-prompt {
+            color: var(--accent);
+        }
+
+        .terminal-command {
+            color: var(--text-primary);
+        }
+
+        .terminal-output {
+            color: var(--text-muted);
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">vishnu.selvan</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn">☰</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">
+                <span class="dot"></span>
+                <span>Open to Infrastructure & Network Engineer Roles</span>
+            </div>
+            <h1>Vishnu Selvan</h1>
+            <p class="hero-subtitle">IT Technical Engineer | Infrastructure & Network Administration</p>
+            <p class="hero-desc">
+                8+ years of experience optimizing virtual infrastructure, designing secure network architectures, 
+                and ensuring high availability across enterprise environments. Specialized in VMware vSphere, 
+                Active Directory, and cloud administration.
+            </p>
+            <div class="hero-buttons">
+                <a href="mailto:vishnuselvan27@gmail.com" class="btn btn-primary">
+                    <span>📧</span> Get In Touch
+                </a>
+                <a href="https://www.linkedin.com/" target="_blank" class="btn btn-secondary">
+                    <span>💼</span> LinkedIn
+                </a>
+            </div>
+            <div class="hero-phone" style="margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--text-muted);">
+                <span style="color: var(--accent);">📱</span>
+                <span>Or reach me directly at </span>
+                <a href="tel:+971506132709" style="color: var(--accent); text-decoration: none; font-weight: 600; border-bottom: 1px dashed var(--accent); transition: all 0.3s ease;">+971 50 613 2709</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value">8+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">350+</span>
+                    <span class="stat-label">Endpoints Managed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">95%+</span>
+                    <span class="stat-label">Uptime Sustained</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">3</span>
+                    <span class="stat-label">Sites Supported</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header fade-in">
+            <div class="section-tag">about_me</div>
+            <h2 class="section-title">Professional Summary</h2>
+        </div>
+        <div class="about-grid fade-in">
+            <div class="about-text">
+                <p>
+                    IT Technical Engineer with a proven track record of optimizing virtual infrastructure and 
+                    high availability across VMware vSphere environments. I specialize in strengthening security 
+                    compliance through strategic design and deployment of Group Policy Objects (GPOs) across 
+                    organizational networks.
+                </p>
+                <p>
+                    My expertise spans Active Directory administration, network configuration (VLAN/DHCP/DNS), 
+                    disaster-recovery planning, and enterprise system support. I'm known for delivering secure, 
+                    reliable IT operations that maximize uptime and support business continuity across multi-site 
+                    environments.
+                </p>
+                <p>
+                    Currently based in Dubai, UAE and available at 1 month's notice. Fluent in English, Malayalam, 
+                    and Tamil.
+                </p>
+            </div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>Location</label>
+                    <p>Dubai, UAE</p>
+                </div>
+                <div class="info-item">
+                    <label>Availability</label>
+                    <p>1 Month Notice</p>
+                </div>
+                <div class="info-item">
+                    <label>Phone</label>
+                    <p>+971 50 613 2709</p>
+                </div>
+                <div class="info-item">
+                    <label>Email</label>
+                    <p>vishnuselvan27@gmail.com</p>
+                </div>
+                <div class="info-item">
+                    <label>Education</label>
+                    <p>B.Tech Electronics & Communication</p>
+                </div>
+                <div class="info-item">
+                    <label>Languages</label>
+                    <p>English, Malayalam, Tamil</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" style="background: var(--bg-secondary);">
+        <div class="section-header fade-in">
+            <div class="section-tag">technical_skills</div>
+            <h2 class="section-title">Core Competencies</h2>
+        </div>
+        <div class="skills-container fade-in">
+            <div class="skill-category">
+                <h3><span class="icon">🌐</span> Networking & Protocols</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">TCP/IP</span>
+                    <span class="skill-tag">DNS</span>
+                    <span class="skill-tag">DHCP</span>
+                    <span class="skill-tag">VPN</span>
+                    <span class="skill-tag">VLANs</span>
+                    <span class="skill-tag">Subnetting</span>
+                    <span class="skill-tag">OSPF</span>
+                    <span class="skill-tag">BGP</span>
+                    <span class="skill-tag">Routing</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><span class="icon">🖥️</span> Infrastructure & Hardware</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Managed Switches</span>
+                    <span class="skill-tag">Routers</span>
+                    <span class="skill-tag">Firewalls</span>
+                    <span class="skill-tag">WAPs</span>
+                    <span class="skill-tag">PoE</span>
+                    <span class="skill-tag">Structured Cabling</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><span class="icon">🪟</span> Windows Server & AD</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Active Directory</span>
+                    <span class="skill-tag">GPOs</span>
+                    <span class="skill-tag">Domain Controllers</span>
+                    <span class="skill-tag">User Management</span>
+                    <span class="skill-tag">Windows Server 2016</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><span class="icon">⚡</span> Virtualization</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">VMware vSphere</span>
+                    <span class="skill-tag">ESXi</span>
+                    <span class="skill-tag">Proxmox</span>
+                    <span class="skill-tag">High Availability</span>
+                    <span class="skill-tag">Cluster Management</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><span class="icon">☁️</span> Cloud & SaaS</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Microsoft 365</span>
+                    <span class="skill-tag">Microsoft Azure</span>
+                    <span class="skill-tag">Google Cloud</span>
+                    <span class="skill-tag">Ivanti Neurons</span>
+                    <span class="skill-tag">Ivanti MDM / UEM</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><span class="icon">🛡️</span> Backup & Security</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Veeam</span>
+                    <span class="skill-tag">Snapshot Management</span>
+                    <span class="skill-tag">Disaster Recovery</span>
+                    <span class="skill-tag">ISO 27001</span>
+                    <span class="skill-tag">SOC Collaboration</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><span class="icon">📊</span> Monitoring & Tools</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Zabbix</span>
+                    <span class="skill-tag">Zammad</span>
+                    <span class="skill-tag">Zoho Help Desk</span>
+                    <span class="skill-tag">ITSM Ticketing</span>
+                    <span class="skill-tag">RPA</span>
+                    <span class="skill-tag">CRM Administration</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="section-header fade-in">
+            <div class="section-tag">work_experience</div>
+            <h2 class="section-title">Professional Journey</h2>
+        </div>
+        <div class="timeline fade-in">
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <div>
+                        <div class="timeline-title">IT Technical Support Engineer</div>
+                        <div class="timeline-company">LTC Group Middle East</div>
+                    </div>
+                    <span class="timeline-date">Sep 2024 – Present</span>
+                </div>
+                <div class="timeline-location">📍 Dubai, UAE</div>
+                <div class="timeline-desc">
+                    <ul>
+                        <li>Manage and secure IT infrastructure spanning 350+ endpoints and 200+ users across 3 sites, sustaining 95%+ system uptime</li>
+                        <li>Administer Active Directory, GPO deployment, and automated software distribution across the enterprise</li>
+                        <li>Configure network switches with VLAN setup, port assignments, and trunking for optimized segmentation</li>
+                        <li>Build centralized Zabbix dashboards for real-time network performance and SLA compliance visibility</li>
+                        <li>Leverage Ivanti Neurons (UEM & MDM) for automated device discovery, compliance, and self-healing scripts</li>
+                        <li>Administer Microsoft 365 and Azure cloud services alongside on-premises infrastructure</li>
+                        <li>Coordinate with SOC team for threat identification, triage, and incident response</li>
+                        <li>Design and execute daily automated backup and disaster-recovery protocols using Veeam</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <div>
+                        <div class="timeline-title">System Engineer</div>
+                        <div class="timeline-company">Dentcare Dental Lab Pvt Ltd</div>
+                    </div>
+                    <span class="timeline-date">May 2021 – Jun 2024</span>
+                </div>
+                <div class="timeline-location">📍 Muvattupuzha, India</div>
+                <div class="timeline-desc">
+                    <ul>
+                        <li>Managed 150+ IT support requests monthly via Zoho Help Desk, achieving 95% first-response SLA</li>
+                        <li>Troubleshot hardware and software across 1,000+ endpoints, reducing recurring incidents via SOPs</li>
+                        <li>Designed and managed network solutions (VLANs, DHCP, DNS, routing) supporting 300+ users</li>
+                        <li>Administered Windows Server 2016 and supported end-to-end onboarding/offboarding processes</li>
+                        <li>Delivered technical support for proprietary intraoral scanners, resolving integration issues</li>
+                        <li>Managed 50+ multi-vendor printers with proactive driver deployment and firmware updates</li>
+                        <li>Conducted security audits, vulnerability assessments, and patch-management protocols</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <div>
+                        <div class="timeline-title">IT Administrator</div>
+                        <div class="timeline-company">Skinsecrets Hospital</div>
+                    </div>
+                    <span class="timeline-date">Feb 2018 – Apr 2021</span>
+                </div>
+                <div class="timeline-location">📍 Kochi, India</div>
+                <div class="timeline-desc">
+                    <ul>
+                        <li>Implemented next-gen network infrastructure with PoE switches, WAPs, and structured cabling</li>
+                        <li>Served as primary CRM Administrator, optimizing patient-management workflows</li>
+                        <li>Installed and maintained surveillance cameras, CCTV systems, and computer networks</li>
+                        <li>Built LAN infrastructure through network I/O crimping, punching, and rack installation</li>
+                        <li>Managed IT asset inventory and coordinated vendor procurement and support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" style="background: var(--bg-secondary);">
+        <div class="section-header fade-in">
+            <div class="section-tag">certifications</div>
+            <h2 class="section-title">Credentials & Training</h2>
+        </div>
+        <div class="certs-grid fade-in">
+            <div class="cert-card">
+                <span class="cert-status active">Active</span>
+                <div class="cert-title">ISO/IEC 27001 Information Security Associate</div>
+                <div class="cert-issuer">Skillfront</div>
+                <div class="cert-date">Issued Jun 2026 · Expires Jul 2029</div>
+            </div>
+            <div class="cert-card">
+                <span class="cert-status active">Active</span>
+                <div class="cert-title">NSE 1: Information Security Awareness</div>
+                <div class="cert-issuer">Fortinet</div>
+                <div class="cert-date">Issued Mar 2023 · Expires Mar 2027</div>
+            </div>
+            <div class="cert-card">
+                <span class="cert-status active">Active</span>
+                <div class="cert-title">NSE 2: The Threat Landscape</div>
+                <div class="cert-issuer">Fortinet</div>
+                <div class="cert-date">Issued Apr 2025 · Expires Apr 2028</div>
+            </div>
+            <div class="cert-card">
+                <span class="cert-status active">Active</span>
+                <div class="cert-title">VMware vSphere Virtualization Training</div>
+                <div class="cert-issuer">Udemy</div>
+                <div class="cert-date">Issued Jan 2023 · No Expiry</div>
+            </div>
+            <div class="cert-card">
+                <span class="cert-status progress">In Progress</span>
+                <div class="cert-title">Cisco Certified Network Associate (CCNA)</div>
+                <div class="cert-issuer">Cisco</div>
+                <div class="cert-date">Expected Nov 2026</div>
+            </div>
+            <div class="cert-card">
+                <span class="cert-status progress">In Progress</span>
+                <div class="cert-title">Microsoft Azure Administrator (AZ-104)</div>
+                <div class="cert-issuer">Microsoft</div>
+                <div class="cert-date">Expected Sep 2026</div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="section-header fade-in">
+            <div class="section-tag">projects</div>
+            <h2 class="section-title">Infrastructure & Engineering Projects</h2>
+        </div>
+        <div class="projects-grid fade-in">
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">🌐</div>
+                    <span class="project-status completed">Completed</span>
+                </div>
+                <h3 class="project-title">Multi-Site VLAN Segmentation</h3>
+                <p class="project-desc">
+                    Designed and deployed a complete VLAN architecture across 3 corporate sites, segmenting 
+                    traffic into Management, Staff, Guest, VoIP, and CCTV zones. Reduced broadcast domains 
+                    by 80% and improved security posture through inter-VLAN ACLs.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Cisco / Netgear Switches</span>
+                    <span class="tech-tag">VLANs</span>
+                    <span class="tech-tag">Trunking</span>
+                    <span class="tech-tag">ACLs</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">⚡</div>
+                    <span class="project-status completed">Completed</span>
+                </div>
+                <h3 class="project-title">VMware vSphere HA Cluster</h3>
+                <p class="project-desc">
+                    Built a 3-node VMware vSphere cluster with vMotion, DRS, and High Availability. 
+                    Migrated 40+ physical and legacy VMs, achieving 99.9% uptime with zero-downtime 
+                    maintenance windows and automated resource balancing.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">VMware vSphere</span>
+                    <span class="tech-tag">ESXi</span>
+                    <span class="tech-tag">vMotion</span>
+                    <span class="tech-tag">DRS</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">🛡️</div>
+                    <span class="project-status completed">Completed</span>
+                </div>
+                <h3 class="project-title">Automated GPO & Software Deployment</h3>
+                <p class="project-desc">
+                    Architected 25+ Group Policy Objects to standardize 350+ endpoint configurations. 
+                    Automated silent software deployment (Office 365, security agents, printers) cutting 
+                    manual provisioning time from 2 hours to 15 minutes per machine.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Active Directory</span>
+                    <span class="tech-tag">GPOs</span>
+                    <span class="tech-tag">MSI / MST</span>
+                    <span class="tech-tag">PowerShell</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📊</div>
+                    <span class="project-status completed">Completed</span>
+                </div>
+                <h3 class="project-title">Zabbix Enterprise Monitoring</h3>
+                <p class="project-desc">
+                    Deployed centralized Zabbix server with custom dashboards, network topology maps, 
+                    and SLA-based alerting. Integrated SNMP and Agent monitoring for switches, servers, 
+                    and VMs with email and webhook notifications to the operations team.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Zabbix</span>
+                    <span class="tech-tag">SNMP</span>
+                    <span class="tech-tag">Grafana-style Maps</span>
+                    <span class="tech-tag">Alerting</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">☁️</div>
+                    <span class="project-status completed">Completed</span>
+                </div>
+                <h3 class="project-title">Veeam Backup & DR Strategy</h3>
+                <p class="project-desc">
+                    Implemented a 3-2-1 backup strategy using Veeam Backup & Replication with daily 
+                    automated jobs, snapshot management, and offsite replication. Reduced RTO from 8 hours 
+                    to under 45 minutes and achieved 100% backup success rate.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Veeam B&R</span>
+                    <span class="tech-tag">Snapshot Management</span>
+                    <span class="tech-tag">Offsite Replication</span>
+                    <span class="tech-tag">Disaster Recovery</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📱</div>
+                    <span class="project-status inprogress">In Progress</span>
+                </div>
+                <h3 class="project-title">Ivanti UEM / MDM Fleet Rollout</h3>
+                <p class="project-desc">
+                    Leading enterprise-wide deployment of Ivanti Neurons UEM & MDM across 350+ mixed 
+                    endpoints (Windows, macOS, iOS, Android). Automating device discovery, compliance 
+                    policy enforcement, and self-healing script deployment.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Ivanti Neurons</span>
+                    <span class="tech-tag">UEM</span>
+                    <span class="tech-tag">MDM</span>
+                    <span class="tech-tag">Cross-Platform</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">🏠</div>
+                    <span class="project-status completed">Completed</span>
+                </div>
+                <h3 class="project-title">Personal Homelab & NAS</h3>
+                <p class="project-desc">
+                    Built a Proxmox-based homelab running TrueNAS Scale with ZFS RAID-Z2 for 20+ TB of 
+                    redundant storage. Hosts multiple VMs for testing AD, DNS, DHCP, and Docker containers 
+                    for Plex, Pi-hole, and network monitoring. Used for hands-on learning and proof-of-concept 
+                    before production deployment.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Proxmox</span>
+                    <span class="tech-tag">TrueNAS Scale</span>
+                    <span class="tech-tag">ZFS</span>
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">Pi-hole</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terminal Section -->
+    <section>
+        <div class="terminal fade-in">
+            <div class="terminal-content">
+                <div class="terminal-line">
+                    <span class="terminal-prompt">vishnu@portfolio:~$</span> 
+                    <span class="terminal-command">whoami</span>
+                </div>
+                <div class="terminal-line terminal-output">IT Technical Engineer | Infrastructure & Network Specialist</div>
+                <div class="terminal-line">
+                    <span class="terminal-prompt">vishnu@portfolio:~$</span> 
+                    <span class="terminal-command">cat skills.json</span>
+                </div>
+                <div class="terminal-line terminal-output">{ "virtualization": ["VMware", "ESXi", "Proxmox"], "networking": ["TCP/IP", "VLAN", "OSPF", "BGP"], "cloud": ["Azure", "M365", "Ivanti"] }</div>
+                <div class="terminal-line">
+                    <span class="terminal-prompt">vishnu@portfolio:~$</span> 
+                    <span class="terminal-command">uptime</span>
+                </div>
+                <div class="terminal-line terminal-output">8+ years of enterprise IT infrastructure uptime optimization</div>
+                <div class="terminal-line">
+                    <span class="terminal-prompt">vishnu@portfolio:~$</span> 
+                    <span class="terminal-command">_</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header fade-in">
+            <div class="section-tag">get_in_touch</div>
+            <h2 class="section-title">Let's Connect</h2>
+        </div>
+        <div class="contact-grid fade-in">
+            <div class="contact-info">
+                <h3>Ready for the next challenge</h3>
+                <p>
+                    I'm currently open to Infrastructure & Network Engineer roles. 
+                    Whether you need someone to optimize your virtual infrastructure, 
+                    secure your network, or streamline IT operations — let's talk.
+                </p>
+                <div class="terminal" style="margin-top: 2rem;">
+                    <div class="terminal-content">
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span> 
+                            <span class="terminal-command">echo $AVAILABILITY</span>
+                        </div>
+                        <div class="terminal-line terminal-output">1 month notice | Dubai, UAE | Open to relocation</div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-links">
+                <a href="mailto:vishnuselvan27@gmail.com" class="contact-link">
+                    <div class="icon">📧</div>
+                    <div class="info">
+                        <label>Email</label>
+                        <p>vishnuselvan27@gmail.com</p>
+                    </div>
+                </a>
+                <a href="tel:+971506132709" class="contact-link">
+                    <div class="icon">📱</div>
+                    <div class="info">
+                        <label>Phone</label>
+                        <p>+971 50 613 2709</p>
+                    </div>
+                </a>
+                <a href="https://www.linkedin.com/" target="_blank" class="contact-link">
+                    <div class="icon">💼</div>
+                    <div class="info">
+                        <label>LinkedIn</label>
+                        <p>linkedin.com/in/vishnuselvan</p>
+                    </div>
+                </a>
+                <a href="#" class="contact-link" onclick="window.print(); return false;">
+                    <div class="icon">📄</div>
+                    <div class="info">
+                        <label>Resume</label>
+                        <p>Download / Print CV</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Built with 💻 by Vishnu Selvan · Deployed on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a></p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">© 2026 · Infrastructure & Network Engineer</p>
+    </footer>
+
+    <script>
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.style.background = 'rgba(10, 14, 23, 0.95)';
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                navbar.style.background = 'rgba(10, 14, 23, 0.85)';
+                navbar.style.boxShadow = 'none';
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Typing effect for terminal
+        const terminalLines = document.querySelectorAll('.terminal-line');
+        terminalLines.forEach((line, index) => {
+            line.style.opacity = '0';
+            setTimeout(() => {
+                line.style.transition = 'opacity 0.3s ease';
+                line.style.opacity = '1';
+            }, index * 200);
+        });
+    </script>
+</body>
+</html>
